@@ -17,6 +17,20 @@
   </div>
 
   <script>
+    // 要解决一个问题:
+    // 使用 'xxx.yyy.zzz' 可以来访问某一个对象
+    // 就是用字符串路径来访问对象的成员
+    function getValueByPath(obj, path) {
+      let paths = path.split('.'); // [ xxx, yyy, zzz ]
+
+      let res = obj;
+      let prop;
+      while (prop = paths.shift()) {
+        res = res[prop];
+      }
+      return res;
+    }
+   
     let rkuohao = /\{\{(.+?)\}\}/g;
     function compiler( template, data ) {
       let childNodes = template.childNodes; // 取出子元素
@@ -31,7 +45,8 @@
                                                     // 函数的 第 0 个参数 表示匹配到的内容
                                                     // 函数的 第 n 个参数 表示正则中的 第 n 组
             let key = g.trim(); // 写在双花括号里面的 东西
-            let value = data[ key ];
+            // let value = data[ key ];换为下面可以a.b.c
+             let value = getValueByPath(data, key);
 
             // 将 {{ xxxx }} 用这个 值替换
             return value;
