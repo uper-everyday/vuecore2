@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+   <div id="root">
+       <p>vue2.0源码分析</p>
+       <p>{{name}}</p>
+       <p>{{message}}</p>
+   </div> 
+   <script>
+       console.log(root) //id会自动生成一个全局的dom对象,此时name还没赋值
+       let app = new Vue({
+           el: "#root",
+           data: {
+               name : "donglele",
+               message: "好好学习"
+           }
+       })
+       console.log(root)
+   </script>
+</body>
+</html>
